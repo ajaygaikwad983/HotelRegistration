@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Lemon Tree Hotel</title>
+        <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
+        <link rel="shortcut icon" href="images/favicon.ico">
+        <style>
+            .container {
+                margin-top: 20px;
+                box-shadow: 0px 5px 20px black;
+            }
+            .section-1 {
+                background-image: linear-gradient(lightslategray,white);
+                color: white;
+                
+            }
+            h6 {
+                background-color: black;
+                color: white;
+                padding: 10px;
+                text-align: center;
+            }
+            .section-2,.section-3, .section-4,.section-5,.section-6{
+                padding: 20px;
+                background-image: linear-gradient(lightslategray,white);
+            }
+            .card {
+                background-image: radial-gradient(white,lightslategray);
+            }
+            .card label {
+                font-weight: bold;
+            }
+            .section-3 div {
+                margin-top: 10px;                
+            }
+            button {
+                width: 200px; 
+                margin: auto; 
+                display: block;
+            }
+            button:disabled {
+                cursor: not-allowed;
+            }
+            #popup {
+                display: none;
+                width: 600px;
+                margin: auto;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%,-50%);
+                position: fixed;
+            }
+            a:hover {
+                border: 2px solid black;
+            }
+            
+        </style>
+        <script>
+            function enableClick() {
+                var advance=document.getElementById("txtAdvance").value;
+                if(advance!==null){
+                    document.getElementById("registerBtn").disabled=false;
+
+                }
+            }
+            function registerClick() {
+                document.getElementById("popup").style.display="block";
+                document.getElementById("lblName").innerHTML=document.getElementById("txtName").value;
+                document.getElementById("lblDate").innerHTML=document.getElementById("txtDate").value;
+                document.getElementById("lblDays").innerHTML=document.getElementById("txtDays").value;
+                document.getElementById("lblPersons").innerHTML=document.getElementById("txtPersons").value;
+
+                var room;
+                var roomCost;
+                var amenities="";
+                var amenitiesCost;
+                var total;
+
+                var deluxeRadio = document.getElementById("optDeluxe");
+                var suiteRadio = document.getElementById("optSuite");
+                var lockerCheckbox=document.getElementById("lockerCheck");
+                var acCheckbox=document.getElementById("acCheck");
+                var persons=document.getElementById("txtPersons").value;
+                var days=document.getElementById("txtDays").value;
+                
+                if(deluxeRadio.checked){
+                    room = deluxeRadio.value;
+                    roomCost=2500;
+                }
+                if(suiteRadio.checked) {
+                    room=suiteRadio.value;
+                    roomCost=4000;
+                }
+                if(lockerCheckbox.checked){
+                    amenities+=lockerCheckbox.value + "<br>";
+                    amenitiesCost=500;
+                    roomCost=roomCost + amenitiesCost;
+                }
+                if(acCheckbox.checked){
+                    amenities+=acCheckbox.value + "<br>";
+                    amenitiesCost=1000;
+                    roomCost=amenitiesCost+roomCost;
+                }
+                total=roomCost*days;
+                
+                if(persons>2){
+                    persons=persons-2;
+                    var personAmt=persons*1000;
+                    total=(roomCost*days)+personAmt;
+                }
+                document.getElementById("lblRoom").innerHTML = room;
+                document.getElementById("lblAmenities").innerHTML=amenities;
+                document.getElementById("lblTotal").innerHTML=total;
+
+                var advanceAmt=document.getElementById("txtAdvance").value;
+                document.getElementById("lblAdvance").innerHTML=advanceAmt;
+
+                var balanceAmt= total - advanceAmt;
+                document.getElementById("lblBalance").innerHTML=balanceAmt;
+
+            }
+            function okClick() {
+                document.getElementById("popup").style.display="none";
+            }
+        </script>
+    </head>
+    
+    <body>
+        <div class="container">
+            <div class="section-1" >
+                <div style="float: left;">
+                    <img src="images/lemontree.png" style="margin: 5px;">
+                </div>
+                <div class="btn-toolbar bg-transparent justify-content-between" style="padding: 25px;">
+                    <div class="btn-group">
+                        <a href="#" class="btn btn-transparent" style="font-size: 1.2em;">Home</a>
+                        <a href="#" class="btn btn-transparent" style="font-size: 1.2em;">Hotels</a>
+                        <a href="#" class="btn btn-transparent" style="font-size: 1.2em;">Rewards</a>
+                        <a href="#" class="btn btn-transparent" style="font-size: 1.2em;">Contact us</a> 
+                    </div>
+                    <div class="btn-group">
+                        <a href="#" class="btn btn-transparent" style="font-size: 1.2em;">Sign in</a>
+                    </div>
+                </div>
+            </div>
+            <br>
+
+            <div class="section-2">
+                <img src="images/dubaiBanner_v2.jpg" width="100%" height="400px" style="position: relative;">
+               
+            </div>
+            <br>
+            
+            <div class="section-3" style="position: relative;">
+                <h6 style="text-align: center;">Customer Details</h6>
+                    <form class="form-group" style="margin: 20px;">
+                        <div class=" form-inline" >
+                            <label class="form-control-label" >Name</label>
+                            <input type="text" id="txtName" placeholder="Cutomer Name" class="form-control" style="position: absolute; left: 30%; width: 500px; border: 2px solid lightslategrey;">
+                        </div>
+                        <div class=" form-inline" style="line-height: 50px;">
+                            <label class="form-control-label">Check-in Date</label>
+                            <input type="date" id="txtDate" class="form-control" style="position: absolute; left: 30%; width: 300px; border: 2px solid lightslategrey;">
+                        </div>
+                        <div class=" form-inline" style="line-height: 25px;">
+                            <label class="form-control-label">Total No. of Days</label>
+                            <input type="number" id="txtDays" placeholder="Days" class="form-control" style="position: absolute; left: 30%; width: 100px; border: 2px solid lightslategrey;">
+                        </div>
+                        <div class=" form-inline" style="line-height: 50px;">
+                            <label class="form-control-label">Total No. of Persons</label>
+                            <input type="number" id="txtPersons" class="form-control" placeholder="Persons" style="position: absolute; left: 30%; width: 100px; border: 2px solid lightslategrey;">    
+                        </div>
+                    </form>
+            </div>
+            <br>
+
+            <div class="section-4">
+                <h6>Select Room Type</h6>
+                <div class="card-deck">
+                    <div class="card text-center">
+                        <img src="images/deluxe.jpg" width="500px" height="300px" style="margin: auto; padding: 20px;">
+                        <div class="card-footer">
+                            <input type="radio" name="room" id="optDeluxe" value="Deluxe Room">
+                            <label>Delux Room &#8377;2500/day </label>
+                        </div>
+                    </div>
+                    <div class="card text-center">
+                        <img src="images/suiteC.jpg" width="500px" height="300px" style="margin: auto; padding: 20px;">
+                        <div class="card-footer">
+                            <input type="radio" name="room" id="optSuite" value="Suite Room" >
+                            <label>Suite Room &#8377;4000/day </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+
+            <div class="section-5">
+                <h6>Select Amenities</h6>
+                <div class="card-deck">
+                    <div class="card text-center">
+                        <img src="images/bank-lockers-500x500.jpg" width="400px" height="300px" style="margin: auto; padding: 20px;">
+                        <div class="card-footer">
+                            <input type="checkbox" name="lockerAmenities" id="lockerCheck" value="Locker">
+                            <label>Locker &#8377;500/day</label>
+                        </div>
+                    </div>
+                    <div class="card text-center">
+                        <img src="images/ac.png" width="400px" height="300px" style="margin: auto; padding: 20px;">
+                        <div class="card-footer">
+                            <input type="checkbox" name="acAmenities" id="acCheck" value="A/C">
+                            <label>A/C &#8377;1000/day</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+
+            <div class="section-6 text-center">
+                <h6>Advance Amount</h6>
+                <div>
+                    <input type="text" class="form-control" placeholder="Advance" onkeyup="enableClick()" style="width: 250px; margin: auto; text-align:center; border: 2px solid lightslategrey;" id="txtAdvance">
+                </div>
+            </div>
+            <br>
+        
+            <div class="text-center section-7 bg-white">
+                <button onclick="registerClick()" id="registerBtn" class="btn text-white bg-dark" disabled>Register</button>
+            </div>
+            <br>
+
+            <div class="popup" id="popup">
+                <table class="table table-hover table-striped table-light" >
+                    <thead style="background-color:black;">
+                        <tr>
+                            <th colspan="2"><h5 style="text-align:center; color:white;">Bill Summary</h5></th>
+                        </tr>
+                    </thead>
+                    
+                        <tr>
+                            <td>Customer Name:</td>
+                            <td id="lblName"></td>
+                        </tr>
+                        <tr>
+                            <td>Check-in Date:</td>
+                            <td id="lblDate"></td>
+                        </tr>
+                        <tr>
+                            <td>Total No. of Days:</td>
+                            <td id="lblDays"></td>
+                        </tr>
+                        <tr>
+                            <td>Total No. of Persons:</td>
+                            <td id="lblPersons"></td>
+                        </tr>
+                        <tr>
+                            <td>Room Type:</td>
+                            <td id="lblRoom"></td>
+                        </tr>
+                        <tr>
+                            <td>Amenities:</td>
+                            <td id="lblAmenities"></td>
+                        </tr>
+                        <tr>
+                            <td>Total Amount:</td>
+                            <td id="lblTotal"></td>
+                        </tr>
+                        <tr>
+                            <td>Advance Amount:</td>
+                            <td id="lblAdvance"></td>
+                        </tr>
+                        <tr>
+                            <td>Balance Amount:</td>
+                            <td id="lblBalance"></td>
+                        </tr>
+                        <tr>       
+                            <td align="center"  colspan="2"><button onclick="okClick()" class="btn text-white bg-dark">Ok</button></td>
+                        </tr>
+                </table>       
+                      
+                    
+                
+            </div>
+        </div>
+    </body>
+</html>

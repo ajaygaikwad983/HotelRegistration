@@ -1,5 +1,5 @@
 # HotelRegistration
-######Study Assignment
+####Study Assignment
 
 Hotel Registration Page using HTML, CSS, Bootstrap and Javascript
 
